@@ -1,0 +1,21 @@
+services:
+ postgres:
+  image: postgres:15
+  contanier_name: cicd_postgres
+  environment:
+   POSTGRES_USER: sonar
+   POSTGRES_PASSWORD: sonar
+   POSTGRES_DB: sonarqube
+  volumes:
+   -postgres_data:/var/lib/postgressql/data
+  networks:
+   -cicd:network
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: cicd-sonarqube
+    depends_on:
+      - postgres
+    environment:
+      SONAR_JDBC_URL:
+
+
